@@ -1,6 +1,14 @@
 <template>
-    <div class="container mx-auto">
+    <div class="d-flex align-item-center justify-content-center" v-if="!isLoggedIn">
+        <div class="text-danger text-center fs-2">
+                Register in the system to add an article
+            </div>
+    </div>
+    <div v-else class="container mx-auto">
         <h1 class="text-center mb-3 display-4">Create Article</h1>
+        <div class="w-75 mx-auto mb-3">
+            <ValidationError v-if="validationErrors && validationPage == 'create-article'" :validationErrors="validationErrors" />
+        </div>
         <div class="article_form w-75 mx-auto rounded-2 shadow-lg py-3 px-4">
             <form @submit.prevent>
                 <Input :label="'Title'" :type="'text'" v-model="title" />
@@ -18,7 +26,10 @@
 </template>
 <script>
 import { mapState } from 'vuex';
+import ValidationError from "./ValidationError.vue";
 export default {
+    components:{ValidationError},
+
     data() {
         return {
             title: '',
@@ -35,14 +46,22 @@ export default {
                 body:this.body,
                 tagList:[],
             }
-            this.$store.dispatch("createArticle",article);
-            // this.$router.push({name:"home"});   
+            this.$store.dispatch("createArticle",article)
+            .then((article)=>{
+                this.$router.push({name: "home"});
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
         },
     },
 
     computed: {
         ...mapState({
             isLoading: state => state.control.isLoading,
+            validationErrors: state => state.control.errors,
+            validationPage: state => state.control.validationPage,
+            isLoggedIn: state=> state.auth.isLoggedIn,
         }),
     },
 }
@@ -51,4 +70,5 @@ export default {
 .article_form {
     min-height: 350px;
 }
+
 </style>

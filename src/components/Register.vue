@@ -8,7 +8,7 @@
                             width="72" height="57">
                     </div>
                     <h1 class="h3 mb-3 fw-normal text-center">Sign up</h1>
-                    <ValidationError v-if="validationErrors" :validationErrors="validationErrors"/>
+                    <ValidationError v-if="validationErrors && validationPage == 'register'" :validationErrors="validationErrors"/>
                     <Input :label="'UserName'" :type="'text'" v-model='username' />
                     <Input :label="'Email address'" :type="'email'" v-model="email" />
                     <Input :label="'Password'" :type="'password'" v-model="password" />
@@ -45,7 +45,8 @@ export default {
     computed: {
         ...mapState({
             isLoading: state => state.auth.isLoading,
-            validationErrors: state => state.auth.errors
+            validationErrors: state => state.auth.errors,
+            validationPage : state => state.auth.validationPage,
         }),
     },
 

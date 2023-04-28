@@ -7,6 +7,7 @@ const state = {
     user:null,
     errors:null,
     isLoggedIn:null,
+    validationPage:null
 }
 
 const getters = {
@@ -26,34 +27,40 @@ const mutations = {
         state.isLoading = true;
         state.user = null;
         state.errors = null;
+        state.validationPage = null;
         state.isLoggedIn = null;
     },
     registerSuccess(state,payload){
         state.isLoading = false;
         state.user = payload;
         state.isLoggedIn = true;
+        state.validationPage = null;
     },
     registerFailure(state,payload){
         state.isLoading = false;
         state.errors = payload.errors;
         state.isLoggedIn = false;
+        state.validationPage = "register";
     },
     
     loginStart(state){
         state.isLoading = true;
         state.user = null;
         state.errors = null;
+        state.validationPage = null;
         state.isLoggedIn = null;
     },
     loginSuccess(state,payload){
         state.isLoading = false;
         state.user = payload;
         state.isLoggedIn = true;
+        state.validationPage = null;
     },
     loginFailure(state,payload){
         state.isLoading = false;
         state.errors = payload.errors;
         state.isLoggedIn = false;
+        state.validationPage = "login"
     },
 
     currentUserStart(state){
