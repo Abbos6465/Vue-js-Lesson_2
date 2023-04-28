@@ -31,6 +31,21 @@ const mutations = {
     deleteArticleFailure(state,payload){
         state.isLoading = false;
     },
+
+    editArticleStart(state){
+        state.errors = null;
+        state.validationPage = null;
+        state.isLoading = true;
+    },
+    editArticleSuccess(state){
+        state.isLoading = false;
+        state.validationPage = null;
+    },
+    editArticleFailure(state,payload){
+        state.isLoading = false;
+        state.errors = payload.errors;
+        state.validationPage = "edit-article";
+    },
 }
 
 const actions = {
@@ -60,6 +75,21 @@ const actions = {
             .catch((error)=>{
                 context.commit("deleteArticleFailure");
                 reject();
+            })
+        })
+    },
+
+    updateArticle(context,data){
+        return new Promise((resolve,reject)=>{
+            context.commit("editArticleStart");
+            ArticleService.updateArticle(data.article,data.slug)
+            .then((response)=>{
+                context.commit("editArticleSuccess");
+                resolve(response);
+            })
+            .catch((error)=>{
+                context.commit("editArticleFailure",error.response.data);
+                reject(error    );
             })
         })
     }

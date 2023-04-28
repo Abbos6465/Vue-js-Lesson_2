@@ -14,7 +14,8 @@
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary" @click="navigateHandler">Read article</button>
+                        <button type="button" class="btn btn-sm btn-outline-primary" @click="navigateHandler">Read article</button>
+                        <button :disabled="isLoading" @click="navigateEditHandler" v-if=" user!=null && article.author.username == user.username" type="button" class="btn btn-sm btn-outline-warning">Edit</button>
                         <button :disabled="isLoading" @click="deleteArticleHandler" v-if=" user!=null && article.author.username == user.username" type="button" class="btn btn-sm btn-outline-danger">Delete</button>
                     </div>
                     <small class="text-body-secondary">{{new Date(article.createdAt).toLocaleDateString("us")}}</small>
@@ -54,7 +55,10 @@ export default {
             .catch(()=>{
                 alert("Failed to delete");
             });
-           
+        },
+
+        navigateEditHandler(){
+            return this.$router.push(`/edit-article/${this.article.slug}`);
         }
     },
 }

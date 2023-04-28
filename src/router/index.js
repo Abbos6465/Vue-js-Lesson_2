@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import {RegisterView,LoginView,HomeView,ArticleDetailView,CreateFormView} from "@/views";
+import {RegisterView,LoginView,HomeView,ArticleDetailView,CreateFormView,EditArticleView} from "@/views";
 
 
 const router = createRouter({
@@ -12,7 +12,7 @@ const router = createRouter({
       redirect: { name: 'home' },
       children:[
         {
-          path: "/home",
+          path: "/",
           name: "home",
           component:HomeView
         },
@@ -25,6 +25,11 @@ const router = createRouter({
           path:"/create-article",
           name:"create-article",
           component: CreateFormView
+        },
+        {
+          path:"edit-article/:slug",
+          name: "edit-article",
+          component: EditArticleView
         }
       ]
     },
