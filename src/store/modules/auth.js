@@ -1,5 +1,5 @@
-import { removeItem, setItem } from "../helpers/persistaneStorage";
-import AuthService from "../service/auth";
+import { removeItem, setItem } from "@/helpers/persistaneStorage";
+import AuthService from "@/service/auth";
 import { gettersTypes } from "./types";
 
 const state = {
@@ -121,6 +121,7 @@ const actions = {
             AuthService.getUser()
             .then(response=>{
                 context.commit("currentUserSuccess",response.data.user);
+
                 resolve(response.data.user);
             })
             .catch(()=>context.commit("currentUserFailure"));

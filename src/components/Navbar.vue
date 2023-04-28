@@ -1,5 +1,5 @@
 <template>
-    <header class="bg-primary w-100 py-2 text-white px-5 mb-5">
+    <header class="bg-primary w-100 py-2 text-white px-5">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="nav-logo">
                     <h2 class="fs-1">
@@ -10,7 +10,7 @@
                     <template v-if="isLoggedIn">
                         <RouterLink :to="{name:'home'}" class="text-white text-decoration-none">{{ user.username }}</RouterLink>
                         <RouterLink :to="{name:'create-article'}" class="btn btn-warning rounded-pill px-3 py-2 text-white fw-bold">Create article</RouterLink>
-                        <a href=""  class="btn btn-warning rounded-pill px-3 py-2 text-white fw-bold" @click="logout">Logout</a>  
+                        <button  class="btn btn-warning rounded-pill px-3 py-2 text-white fw-bold" @click="logout">Logout</button>  
                     </template>
                     <template v-if="isAnonymous">
                         <RouterLink :to="{name:'register'}" class="text-white text-decoration-none">Register</RouterLink>
@@ -21,7 +21,7 @@
     </header>
 </template>
 <script>
-import {gettersTypes} from "../modules/types"
+import {gettersTypes} from "@/store/modules/types"
 import {mapGetters} from "vuex";
 import { RouterLink } from 'vue-router';
 export default {
@@ -42,9 +42,12 @@ export default {
 
     methods: {
         logout(){
-            return this.$store.dispatch('logout');
+
+            this.$store.dispatch('logout');
+            this.$router.push({name: 'login'})
         }
     },
+
 }
 </script>
 <style scoped>

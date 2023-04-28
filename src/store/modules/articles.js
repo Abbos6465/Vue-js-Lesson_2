@@ -1,4 +1,4 @@
-import ArticleService from "../service/articles";
+import ArticleService from "@/service/articles";
 
 const state = {
     data:null,

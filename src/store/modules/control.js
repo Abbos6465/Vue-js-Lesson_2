@@ -1,4 +1,4 @@
-import ArticleService from "../service/articles";
+import ArticleService from "@/service/articles";
 
 const state = {
     isLoading: false,
@@ -22,6 +22,15 @@ const mutations = {
         state.validationPage = "create-article";
     },
 
+    deleteArticleStart(state){
+        state.isLoading = true;
+    },
+    deleteArticleSuccess(state){
+        state.isLoading = false;
+    },
+    deleteArticleFailure(state,payload){
+        state.isLoading = false;
+    },
 }
 
 const actions = {
@@ -38,6 +47,21 @@ const actions = {
                 reject(error.response.data);
             })
         });
+    },
+
+    deleteArticle(context,slug){
+        return new Promise((resolve,reject)=>{
+            context.commit('deleteArticleStart');
+            ArticleService.deleteArticle(slug)
+            .then((response)=>{
+                context.commit("deleteArticleSuccess");
+                resolve();
+            })
+            .catch((error)=>{
+                context.commit("deleteArticleFailure");
+                reject();
+            })
+        })
     }
 }
 
