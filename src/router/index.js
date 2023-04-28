@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import {RegisterView,LoginView,HomeView,ArticleDetailView,CreateFormView,EditArticleView} from "@/views";
+import {RegisterView,LoginView,HomeView,ArticleDetailView,CreateFormView,EditArticleView,PageNotFoundView} from "@/views";
 
 
 const router = createRouter({
@@ -30,7 +30,12 @@ const router = createRouter({
           path:"edit-article/:slug",
           name: "edit-article",
           component: EditArticleView
-        }
+        },
+        {
+          path:"/:pathMatch(.*)*",
+          name:"NotFound",
+          component:PageNotFoundView
+          }
       ]
     },
     {
@@ -48,6 +53,11 @@ const router = createRouter({
           path: "/login",
           name: "login",
           component: LoginView
+        },
+        {
+        path:"/:pathMatch(.*)*",
+        name:"NotFound",
+        component:PageNotFoundView
         }
       ]
     }

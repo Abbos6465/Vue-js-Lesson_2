@@ -4,3 +4,4 @@ export {default as RegisterView} from "./RegisterView.vue";
 export {default as ArticleDetailView} from "./ArticleDetailView.vue";
 export {default as CreateFormView} from "./CreateFormView.vue";
 export {default as EditArticleView} from "./EditArticleView.vue";
+export {default as PageNotFoundView} from "./PageNotFoundView.vue";

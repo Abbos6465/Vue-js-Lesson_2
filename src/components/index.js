@@ -5,4 +5,5 @@ export {default as ArticleCard} from "./ArticleCard.vue";
 export {default as ArticleDetail} from "./ArticleDetail.vue";
 export {default as CreateForm} from "./CreateForm.vue";
 export {default as EditArticle} from "./EditArticle.vue";
+export {default as PageNotFound} from "./PageNotFound.vue";
 
